@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 public class SellerHomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static String TAG = "SellerHomeActivity";
     public ActionBarDrawerToggle toggle;
 
     @Override
@@ -27,6 +30,14 @@ public class SellerHomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_seller_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Fragment squadFragment = new UpdateStockFrag();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.flContent,squadFragment,null);
+        fragmentTransaction.commit();
+
+        findViewById(R.id.nav_updateStock);
+        setTitle("Update Stock");
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +56,8 @@ public class SellerHomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
 
@@ -96,30 +109,32 @@ public class SellerHomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        Log.e(TAG, "__________onNavigationItemSelected__________");
 
+        int id = item.getItemId();
+        Log.e("This is Menu item 1 "+item ,"");
+        Log.e("This is id 1 "+id ,"");
         Fragment fragment=null;
         Class fragClass;
 
         switch (id){
-            case R.id.nav_sellerHome :
-                fragClass=HomeFrag.class;
-                break;
-//            case R.id.nav_updateStock :
-//                fragClass=UpdateStockActivity.class;
-//                break;
 //            case R.id.nav_manageStock :
-//                fragClass=ManageStockActivity.class;
+//                fragClass=UpdateStockFrag.class;
 //                break;
 //            case R.id.nav_myCash :
-//                fragClass=MyCashActivity.class;
+//                fragClass=ManageStockActivity.class;
 //                break;
 //            case R.id.nav_accounting :
+//                fragClass=MyCashActivity.class;
+//                break;
+//            case R.id.nav_sellerHome :
 //                fragClass=AccountingActivity.class;
 //                break;
             default:
-                fragClass=HomeFrag.class;
-                setTitle("Seller Home");
+                fragClass=UpdateStockFrag.class;
+               // setTitle("Seller Home");
+                Log.e("This is Menu item 2 "+item ,"");
+                Log.e("This is id 2 "+id ,"");
         }
 
         try {
